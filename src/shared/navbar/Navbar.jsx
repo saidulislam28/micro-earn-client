@@ -1,19 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import './navbar.css'
+import "./navbar.css";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 
 
-
-
-
 const Navbar = () => {
-
-  const {user, logOut} = useContext(AuthContext);
-  
+  const { user, logOut } = useContext(AuthContext);
 
   const handleLogOut = () => {
-    logOut().then(alert('logged out')).catch();
+    logOut().then(alert("logged out")).catch();
   };
 
   const navLinks = (
@@ -29,7 +24,17 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-     
+      <li className="mr-2 font-bold">
+        <NavLink
+          to="/"
+          style={({ isActive }) => ({
+            color: isActive ? "#51323B" : "#545e6f",
+            background: isActive ? " #E2E8F0" : "",
+          })}
+        >
+          Dashboard
+        </NavLink>
+      </li>
     </>
   );
 
@@ -60,7 +65,7 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to='/' className="animate__animated  animate__headShake">
+        <Link to="/" className="animate__animated  animate__headShake">
           <span className="text-lg md:text-2xl lg:text-4xl font-extrabold bg-gradient-to-r from-sky-700 via-blue-slate to-slate-200 text-transparent bg-clip-text animate-gradient bg-300%">
             MicroEarn
           </span>
@@ -71,8 +76,8 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-           <div className="flex items-center gap-2">
-           {/* <details className="dropdown">
+          <div className="flex items-center gap-2">
+            {/* <details className="dropdown">
              <summary className=" btn btn-ghost mr-10 lg:mr-2  btn-circle rounded-full mt-2">
            <div
              tabIndex={0}
@@ -101,14 +106,25 @@ const Navbar = () => {
                </li>
              </ul>
            </details> */}
-           <button
-                onClick={handleLogOut} className="font-semibold btn">Log Out</button>
+
+           <div className="font-semibold  border-2 border-yellow-500 px-3 py-2 rounded-xl bg-amber-200">
 
 
-           
-         </div>
+            <span>120</span></div>
+            <button onClick={handleLogOut} className="font-semibold btn">
+              Log Out
+            </button>
+            <img className="h-12 rounded-full w-12" src={user.photoURL} alt="" />
+          </div>
         ) : (
           <div className="flex items-center gap-2">
+            <a
+              target="blank"
+              className="btn btn-link "
+              href="https://www.youtube.com/"
+            >
+              Watch Demo
+            </a>
             <Link to="/signUp">
               <p className="btn  bg-[#4c88b6] text-black">Register</p>
             </Link>
@@ -116,8 +132,8 @@ const Navbar = () => {
             <Link to="/signIn">
               <p className="btn text-black  bg-[#dce86f]">Login</p>
             </Link>
-          </div> )
-        }
+          </div>
+        )}
       </div>
     </div>
   );

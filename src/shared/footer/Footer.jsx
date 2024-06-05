@@ -8,15 +8,13 @@ const Footer = () => {
   <div className="container mx-auto px-4">
     <div className="flex flex-wrap text-left lg:text-left">
       <div className="w-full lg:w-6/12 px-4">
-        <h4 className="text-3xl fonat-semibold text-blueGray-700">MicroEarn</h4>
-        <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
+        <h4 className="text-4xl font-semibold text-blueGray-700">MicroEarn</h4>
+        <h5 className="text-lg mt-5 mb-2 text-blueGray-600">
         Complete tasks and earn rewards - it is that simple!
         </h5>
         <div className="mt-6 lg:mb-0 mb-6">
-          <a href="https://youtu.be/JUwePydwbUI?si=XVVwT7magkGnlCRo" target="_blank">
-          <button className="bg-white text-red-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-            <i className="fab fa-youtube"></i></button>
-          </a>
+
+        
             
             
             
