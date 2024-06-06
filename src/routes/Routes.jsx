@@ -24,11 +24,17 @@ export const router = createBrowserRouter([
       {
         path: 'signUp',
         element: <SignUp></SignUp>
-      },
-      {
-        path: 'dashboard',
-        element: <Dashboard></Dashboard>
       }
+      
     ]
   },
+  {
+    path:'dashboard',
+    element: <Dashboard></Dashboard>,
+    children:[
+      {
+        
+      }
+    ]
+  }
 ]);
