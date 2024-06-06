@@ -9,11 +9,13 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup} from "firebase/auth";
 
 import { AuthContext } from "../../provider/AuthProvider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 const SignIn = () => {
 
-const {signIN, setUser} = useContext(AuthContext)
+const {signIN, setUser, user} = useContext(AuthContext);
+const axiosPublic = useAxiosPublic();
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -48,13 +50,41 @@ e.target.reset()
 const handleGoogleLogin = () =>{
 signInWithPopup(auth, googleProvider)
 .then(result =>{
-    
-  setUser(result.user)
- alert('log in successfully')
-  navigate(location?.state ? location.state : "/");
+console.log(result.user);
+
+  if(result.user){
+  const name = result.user.displayName;
+  const email = result.user.email;
+  const photo = result.user.photoURL;
+  const role = 'worker';
+  const coin = 10;
+
+  const userInfo = {
+    name:name,
+    email: email,
+    photo:photo,
+    role: role,
+   coin: coin
+  };
+  axiosPublic.post('/users', userInfo)
+  .then(res =>{
+    if(res.data.insertedId){
+      console.log("send to data base and logged in");
+    }
+  })
+  .catch(error =>{
+    console.log(error);
+  })
+
+
+
+  navigate(location?.state ? location.state : "/dashboard");
+  }
+ 
+ 
 })
 .catch(error=> {
- alert('something is wrong')
+ console.log('something is wrong')
   console.log(error);
 })
 }

@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   const handleLogOut = () => {
-    logOut().then(alert("logged out")).catch();
+    logOut().then().catch();
   };
 
   const navLinks = (
@@ -26,7 +26,7 @@ const Navbar = () => {
       </li>
       <li className="mr-2 font-bold">
         <NavLink
-          to="/"
+          to="/dashboard"
           style={({ isActive }) => ({
             color: isActive ? "#51323B" : "#545e6f",
             background: isActive ? " #E2E8F0" : "",

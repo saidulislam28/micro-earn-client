@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import "./css/signup.css";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+
+
+
 
 const uppercaseRegex = /[A-Z]/;
 const lowercaseRegex = /[a-z]/;
 
 const SignUp = () => {
   const { signUp, updateProfileinfo } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -17,6 +23,18 @@ const SignUp = () => {
     const email = form.get("email");
     const password = form.get("password");
     const photo = form.get("photo");
+    const role = form.get("role");
+    let earnCoin = 10;
+
+
+    if(role === 'Worker'){
+      earnCoin = 10;
+    }else if(role === 'Creator'){
+      earnCoin = 20;
+    }
+
+   console.log(role, earnCoin);
+  
 
     if (password.length < 8) {
       return alert("Password must be at least 6 characters long.");
@@ -33,11 +51,27 @@ const SignUp = () => {
 
     signUp(email, password)
       .then((result) => {
-        alert("successfully registered");
         console.log(result.user);
 
         updateProfileinfo(name, photo)
-          .then()
+          .then(()=>{
+            const userInfo = {
+              name: name,
+              email: email,
+              
+              photo: photo,
+              role: role,
+              coin: earnCoin
+
+            };
+            axiosPublic.post('/users', userInfo)
+            .then((res) =>{
+              console.log('user created to data base');
+              if(res.data.insertedId){
+                alert('going to database and signup done')
+              }
+            })
+          })
           .catch((error) => {
             alert("something went wrong");
             console.log(error);
@@ -96,12 +130,12 @@ const SignUp = () => {
             <br />
 
             <select
-              name="difficultyLevel"
+              name="role"
               className="rounded-md px-6 py-2 border border-green-400"
             >
-              <option value="Easy">Easy</option>
-              <option value="Medium">Medium</option>
-              <option value="Hard">Hard</option>
+              <option value="Worker">Worker</option>
+              <option value="Creator">Creator</option>
+              
             </select>
        
 
