@@ -17,13 +17,13 @@ const InfoCards = () => {
         <div className="flex flex-col items-center py-10 border-2 border-green-300 bg-gradient-to-r from-indigo-200 from-10% via-sky-400 via-30% to-emerald-200 to-90%">
           <FaDollarSign className="text-5xl text-amber-400"></FaDollarSign>
 
-          <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
+          <h3 className="my-3 text-3xl font-semibold">Total Submissions</h3>
           <h3 className="mt-2 text-3xl font-semibold">100</h3>
         </div>
         <div className="flex flex-col items-center py-10 border-2 border-green-300 bg-gradient-to-r from-indigo-200 from-10% via-sky-400 via-30% to-emerald-200 to-90%">
           <FaDollarSign className="text-5xl text-amber-400"></FaDollarSign>
 
-          <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
+          <h3 className="my-3 text-3xl font-semibold">Total Earnings</h3>
           <h3 className="mt-2 text-3xl font-semibold">100</h3>
         </div>
         

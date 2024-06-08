@@ -1,11 +1,25 @@
 import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import { FaDollarSign } from "react-icons/fa";
 
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  const [myUsers , setMyUsers] = useState([]);
+
+  useState(() =>{
+
+    fetch('http://localhost:5000/users')
+    .then(res => res.json())
+    .then(data => setMyUsers(data))
+  },[])
+
+  const myUserCoin = myUsers.find((myUser) => user?.email === myUser?.email);
+
+  console.log(myUserCoin);
 
   const handleLogOut = () => {
     logOut().then().catch();
@@ -77,40 +91,9 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <div className="flex items-center gap-2">
-            {/* <details className="dropdown">
-             <summary className=" btn btn-ghost mr-10 lg:mr-2  btn-circle rounded-full mt-2">
-           <div
-             tabIndex={0}
-             role="button"
-             className="btn btn-ghost btn-circle avatar"
-             
-           >
-             <div className="rounded-full">
-               <img alt={user.displayName} src={user.photoURL} />
-             </div>
-           </div></summary>
-             <ul className=" shadow menu dropdown-content z-[1] bg-base-100 rounded-box ">
-               <li className="font-semibold">
-                 <Link to="attempted">
-                 <p className="text-start">
-                   My attempted
-                 
-                 </p>
-
-                 </Link>
-               </li>
-               <div className="divider"></div>
-               <li>
-                <button
-                onClick={handleLogOut} className="font-semibold">Log Out</button>
-               </li>
-             </ul>
-           </details> */}
-
-           <div className="font-semibold  border-2 border-yellow-500 px-3 py-2 rounded-xl bg-amber-200">
-
-
-            <span>120</span></div>
+           <div className="font-semibold  border-2 border-yellow-500 px-3 py-2 rounded-xl bg-amber-200 flex items-center">
+            <FaDollarSign></FaDollarSign>
+            <span>{myUserCoin?.coin}</span></div>
             <button onClick={handleLogOut} className="font-semibold btn">
               Log Out
             </button>

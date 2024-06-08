@@ -8,6 +8,9 @@ import WorkerHome from "../pages/userDashboard/worker/HOME/WorkerHome";
 import TaskList from "../pages/userDashboard/worker/tasklist/TaskList";
 import WorkerSubmission from "../pages/userDashboard/worker/submission/WorkerSubmission";
 import Withdraw from "../pages/userDashboard/worker/withdraw/Withdraw";
+import CreatorHome from "../pages/userDashboard/creator/Home/CreatorHome";
+import AddTask from "../pages/userDashboard/creator/addTask/AddTask";
+import CreatorTask from "../pages/userDashboard/creator/creatorTask/CreatorTask";
 
 
 
@@ -32,6 +35,8 @@ export const router = createBrowserRouter([
       
     ]
   },
+
+  
   {
     path:'dashboard',
     element: <Dashboard></Dashboard>,
@@ -52,7 +57,24 @@ export const router = createBrowserRouter([
       {
         path: 'dashboard/workerWithdraw',
         element:<Withdraw></Withdraw>
+      },
+
+      // creator routes 
+      {
+        path: '/dashboard/creatorHome',
+        element:<CreatorHome></CreatorHome>
+      },
+      {
+        path: '/dashboard/addTask',
+        element: <AddTask></AddTask>
+      },
+      {
+        path: '/dashboard/myTask',
+        element: <CreatorTask></CreatorTask>
       }
+
+
+
     ]
   }
 ]);

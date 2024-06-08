@@ -13,7 +13,8 @@ import {
   FaUserShield,
 } from "react-icons/fa";
 import Footer from "../../../shared/footer/Footer";
-import DashNavbar from "../navbar/DashNavbar";
+// import DashNavbar from "../navbar/DashNavbar";
+import Navbar from "../../../shared/navbar/Navbar";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -25,17 +26,13 @@ const Dashboard = () => {
 
   return (
     <div className="">
-      <DashNavbar></DashNavbar>
+     <Navbar></Navbar>
 
       <div className="flex justify-around max-w-6xl mx-auto">
         <div className="">
           <div className="h-full min-h-[550px] p-3 space-y-2 w-60 bg-gray-700 text-gray-100">
             <div className="flex items-center p-2 space-x-4">
-              <img
-                src={user?.photoURL}
-                alt=""
-                className="w-12 h-12 rounded-full bg-gray-500"
-              />
+              
               <div>
                 <h2 className="text-lg font-semibold">{user?.displayName}</h2>
                 <span className="flex items-center space-x-1">
@@ -95,18 +92,23 @@ const Dashboard = () => {
                 {myUser?.role === "Creator" ? (
                   <>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink to='/dashboard/creatorHome' className="flex items-center p-2 space-x-3 rounded-md">
                         <FaHome className="mr-5"></FaHome> Home
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to='/dashboard/addTask'
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaRegCalendarPlus className="mr-5"></FaRegCalendarPlus>{" "}
                         Add new Tasks
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to='/dashboard/myTask'
+                      
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaScribd className="mr-5"></FaScribd> My Task’s
                       </NavLink>
                     </li>
@@ -129,7 +131,7 @@ const Dashboard = () => {
                 {/* admin navigation */}
 
                 {
-                  myUser.role === 'Admin' ? <>
+                  myUser?.role === 'Admin' ? <>
                   <li>
                   <NavLink className="flex items-center p-2 space-x-3 rounded-md">
                     <FaHome className="mr-5"></FaHome> Home

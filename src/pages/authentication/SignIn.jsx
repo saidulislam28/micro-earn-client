@@ -1,20 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./css/signup.css";
 import { useContext } from "react";
-
-
-
 import auth from "../../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup} from "firebase/auth";
-
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 const SignIn = () => {
 
-const {signIN, setUser, user} = useContext(AuthContext);
+const {signIN} = useContext(AuthContext);
 const axiosPublic = useAxiosPublic();
 
 const googleProvider = new GoogleAuthProvider();
