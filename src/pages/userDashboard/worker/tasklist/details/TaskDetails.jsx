@@ -1,24 +1,61 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../../../provider/AuthProvider";
+import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 
 const TaskDetails = () => {
   const data = useLoaderData();
-  console.log(data);
 
-  const {
+  const axiosPublic = useAxiosPublic()
+
+  const {user} = useContext(AuthContext);
+  // console.log(data);
+
+  const {creatorName,
+    creatorEmail,
     imageURL,
     lastDate,
     payableAmount,
     quantity,
     submissionInfo,
     taskDetails,
-    taskTitle,
+    taskTitle
   } = data;
 
   const handleSubmitTask = e =>{
     e.preventDefault();
 
+    const form = new FormData(e.currentTarget);
+    const submission_Details = form.get("submission_Details");
+    const currentDateTime = new Date().toISOString().split('T')[0];
+
+    console.log(currentDateTime);
+
+    console.log(submission_Details);
+  const submission = {
+    task_title:taskTitle,
+ task_detail:taskDetails,
+ task_img_url:imageURL,
+ payable_amount:payableAmount,
+ worker_email:user?.email,
+ worker_name:user?.displayName,
+ submission_details:submission_Details,
+ creator_name:creatorName,
+ creator_email:creatorEmail,
+ current_date:currentDateTime,
+ status:'pending',
+  }
+
+
+axiosPublic.post('submissions', submission)
+.then(res=>{
+  if(res.data.insertedId){
+    console.log("submission send to mongo server");
     
   }
+})
+.catch(error =>console.log(error))
+}
 
   return (
     <div className="h-full flex items-center">
@@ -40,7 +77,7 @@ const TaskDetails = () => {
             <p className="mt-2 text-sm">Payable Amount: {payableAmount}</p>
             <p className="mt-2 text-sm">Available Quantity: {quantity}</p>
             <p className="mt-2 mb-5 text-sm">{submissionInfo}</p>
-            <form>
+            <form onSubmit={handleSubmitTask}>
               <label htmlFor="submission_Details">Submission Details:</label>
               <textarea
                 id="submission_Details"
