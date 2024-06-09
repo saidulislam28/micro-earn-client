@@ -60,7 +60,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "workerSubmissions",
-        element: <WorkerSubmission />
+        element: <PrivateRoutes>
+          <WorkerSubmission />
+        </PrivateRoutes>
       },
       {
         path: "workerWithdraw",
