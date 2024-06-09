@@ -13,6 +13,7 @@ import AddTask from "../pages/userDashboard/creator/addTask/AddTask";
 import CreatorTask from "../pages/userDashboard/creator/creatorTask/CreatorTask";
 import Error from "../error/Error";
 import TaskDetails from "../pages/userDashboard/worker/tasklist/details/TaskDetails";
+import PrivateRoutes from "../pages/private/PrivateRoutes";
 
 
 export const router = createBrowserRouter([
@@ -52,7 +53,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "workerTask/:id",
-        element:  <TaskDetails/>,
+        element:  <PrivateRoutes>
+          <TaskDetails/>
+        </PrivateRoutes>,
         loader: ({ params }) => fetch(`http://localhost:5000/tasks/${params.id}`)
       },
       {

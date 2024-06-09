@@ -1,0 +1,35 @@
+[
+  {
+    "creatorEmail": "creator1@gmail.com",
+    "creatorName": "Saidul",
+    "imageURL": "https://images.unsplash.com/photo-1611926653458-09294b3142bf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "lastDate": "2024-06-30",
+    "payableAmount": 2,
+    "quantity": 5,
+    "submissionInfo": "Submit the link to your social media post and a screenshot of the post as proof of completion.",
+    "taskDetails": "Share a post about our website on your social media profile (Facebook, Twitter, Instagram, or LinkedIn). Make sure to include a brief description of our services and a link to our homepage.",
+    "taskTitle": "Promote our website on your social media"
+  },
+  {
+    "creatorEmail": "saidul@gmail.com",
+    "creatorName": "John Doe",
+    "imageURL": "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "lastDate": "2024-07-15",
+    "payableAmount": 5,
+    "quantity": 3,
+    "submissionInfo": "Submit the link to your blog post and a screenshot of the published article as proof of completion.",
+    "taskDetails": "Write a detailed blog post about our latest product and publish it on your blog. Include your personal review and a link to our product page.",
+    "taskTitle": "Write a blog post"
+  },
+  {
+    "creatorEmail": "joy@gmail.com",
+    "creatorName": "Jane Smith",
+    "imageURL": "https://images.unsplash.com/photo-1581291519195-ef11498d1cf2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "lastDate": "2024-08-01",
+    "payableAmount": 3,
+    "quantity": 10,
+    "submissionInfo": "Submit the link to your YouTube video and a screenshot of the video analytics as proof of completion.",
+    "taskDetails": "Create a YouTube video reviewing our service. Mention its features, benefits, and your personal experience. Include a link to our website in the video description.",
+    "taskTitle": "Create a YouTube review "
+  }
+]
