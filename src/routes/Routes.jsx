@@ -11,70 +11,70 @@ import Withdraw from "../pages/userDashboard/worker/withdraw/Withdraw";
 import CreatorHome from "../pages/userDashboard/creator/Home/CreatorHome";
 import AddTask from "../pages/userDashboard/creator/addTask/AddTask";
 import CreatorTask from "../pages/userDashboard/creator/creatorTask/CreatorTask";
-
-
+import Error from "../error/Error";
+import TaskDetails from "../pages/userDashboard/worker/tasklist/details/TaskDetails";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main></Main>,
+    element: <Main />,
+    errorElement: <Error />,
     children: [
       {
-        path: '/',
-        element: <Home></Home>
+        path: "/",
+        element: <Home />
       },
       {
-        path: 'signIn',
-        element: <SignIn></SignIn>
+        path: "signIn",
+        element: <SignIn />
       },
       {
-        path: 'signUp',
-        element: <SignUp></SignUp>
+        path: "signUp",
+        element: <SignUp />
       }
-      
     ]
   },
-
-  
   {
-    path:'dashboard',
-    element: <Dashboard></Dashboard>,
+    path: "dashboard",
+    element: <Dashboard />,
+    errorElement: <Error />,
     loader: () => fetch('http://localhost:5000/users'),
-    children:[
+    children: [
       {
-        path: 'dashboard/workerHome',
-        element:<WorkerHome></WorkerHome>
+        path: "workerHome",
+        element: <WorkerHome />
       },
       {
-        path: 'dashboard/workerTask',
-        element:<TaskList></TaskList>
+        path: "workerTask",
+        element: <TaskList />,
+        loader: () => fetch('http://localhost:5000/tasks')
       },
       {
-        path: 'dashboard/workerSubmissions',
-        element:<WorkerSubmission></WorkerSubmission>
+        path: "workerTask/:id",
+        element:  <TaskDetails/>,
+        loader: ({ params }) => fetch(`http://localhost:5000/tasks/${params.id}`)
       },
       {
-        path: 'dashboard/workerWithdraw',
-        element:<Withdraw></Withdraw>
-      },
-
-      // creator routes 
-      {
-        path: '/dashboard/creatorHome',
-        element:<CreatorHome></CreatorHome>
+        path: "workerSubmissions",
+        element: <WorkerSubmission />
       },
       {
-        path: '/dashboard/addTask',
-        element: <AddTask></AddTask>
+        path: "workerWithdraw",
+        element: <Withdraw />
       },
       {
-        path: '/dashboard/myTask',
-        element: <CreatorTask></CreatorTask>
+        path: "creatorHome",
+        element: <CreatorHome />
+      },
+      {
+        path: "addTask",
+        element: <AddTask />
+      },
+      {
+        path: "myTask",
+        element: <CreatorTask />
       }
-
-
-
     ]
   }
 ]);

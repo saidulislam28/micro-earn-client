@@ -19,8 +19,6 @@ const Navbar = () => {
 
   const myUserCoin = myUsers.find((myUser) => user?.email === myUser?.email);
 
-  console.log(myUserCoin);
-
   const handleLogOut = () => {
     logOut().then().catch();
   };

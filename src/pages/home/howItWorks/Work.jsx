@@ -6,7 +6,10 @@ import { faUser, faTasks, faGift } from '@fortawesome/free-solid-svg-icons';
 
 const Work = () => {
   return (
-    <div className='bg-[#f9f9f9]'>
+    <div className='bg-[#f9f9f9] my-10'>
+
+
+      <h2 className='text-4xl font-bold text-center'>How it works</h2>
 
     <div className="steps-container flex flex-col lg:flex-row justify-around  flex-wrap container mx-auto">
     <div className="text-center max-w-[300px] m-5 border py-10 px-5 bg-slate-200 rounded-xl">

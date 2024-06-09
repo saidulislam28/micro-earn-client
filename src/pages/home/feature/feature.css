@@ -1,0 +1,53 @@
+.features-section {
+  padding: 1.5rem;
+  background-color: #f7fafc; /* Gray-100 */
+  color: #1a202c; /* Gray-900 */
+}
+
+.features-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-section h2 {
+  font-size: 1.875rem; /* 3xl */
+  font-weight: 700; /* Bold */
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.features-section .grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.features-section .grid.md\:grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.features-section .feature-item {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #ffffff; /* White */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* Shadow */
+  border-radius: 0.5rem; /* Rounded-lg */
+}
+
+.features-section .icon {
+  margin-bottom: 1rem;
+}
+
+.features-section .icon i {
+  font-size: 3rem; /* 5xl */
+}
+
+.features-section .feature-item h3 {
+  font-size: 1.25rem; /* xl */
+  font-weight: 600; /* Semibold */
+  margin-bottom: 0.5rem;
+}
+
+.features-section .feature-item p {
+  font-size: 1rem; /* Base */
+}

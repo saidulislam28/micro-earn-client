@@ -13,163 +13,120 @@ import {
   FaUserShield,
 } from "react-icons/fa";
 import Footer from "../../../shared/footer/Footer";
-// import DashNavbar from "../navbar/DashNavbar";
 import Navbar from "../../../shared/navbar/Navbar";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-
   const data = useLoaderData();
 
   const myUser = data.find((users) => user?.email === users?.email);
-  // console.log(myUser);
 
   return (
     <div className="">
-     <Navbar></Navbar>
+      <Navbar />
 
       <div className="flex justify-around max-w-6xl mx-auto">
         <div className="">
           <div className="h-full min-h-[550px] p-3 space-y-2 w-60 bg-gray-700 text-gray-100">
             <div className="flex items-center p-2 space-x-4">
-              
               <div>
                 <h2 className="text-lg font-semibold">{user?.displayName}</h2>
                 <span className="flex items-center space-x-1">
-                  <p className="text-s text-gray-400">Role:{myUser?.role}</p>
+                  <p className="text-s text-gray-400">Role:
+                    <span className="font-bold"> {myUser?.role}</span>
+                  </p>
                 </span>
               </div>
             </div>
 
             <div className="divide-y divide-gray-700">
               <ul className="pt-2 pb-4 space-y-1 text-sm">
-                {/* worker navigation  */}
-
                 {myUser?.role === "worker" ? (
                   <>
                     <li>
-                      <NavLink
-                        to="dashboard/workerHome"
-                        className="flex items-center p-2 space-x-3 rounded-md"
-                      >
-                        <FaHome className="mr-5"></FaHome> Home
+                      <NavLink to="workerDetails" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaHome className="mr-5" /> Details
                       </NavLink>
                     </li>
-
                     <li>
-                      <NavLink
-                        to="dashboard/workerTask"
-                        className="flex items-center p-2 space-x-3 rounded-md"
-                      >
-                        <FaTasks className="mr-5"></FaTasks> TaskList
+                      <NavLink to="workerHome" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaHome className="mr-5" /> Home
                       </NavLink>
                     </li>
-
                     <li>
-                      <NavLink
-                        to="dashboard/workerSubmissions"
-                        className="flex items-center p-2 space-x-3 rounded-md"
-                      >
-                        <FaList className="mr-5"></FaList> My Submissions
+                      <NavLink to="workerTask" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaTasks className="mr-5" /> TaskList
                       </NavLink>
                     </li>
-
                     <li>
-                      <NavLink
-                        to="dashboard/workerWithdraw"
-                        className="flex items-center p-2 space-x-3 rounded-md"
-                      >
-                        <FaMoneyBill className="mr-5"></FaMoneyBill> withdrawals
+                      <NavLink to="workerSubmissions" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaList className="mr-5" /> My Submissions
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="workerWithdraw" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaMoneyBill className="mr-5" /> Withdrawals
                       </NavLink>
                     </li>
                   </>
-                ) : (
-                  <></>
-                )}
-
-                {/* task creator navigation */}
-
-                {myUser?.role === "Creator" ? (
+                ) : myUser?.role === "Creator" ? (
                   <>
                     <li>
-                      <NavLink to='/dashboard/creatorHome' className="flex items-center p-2 space-x-3 rounded-md">
-                        <FaHome className="mr-5"></FaHome> Home
+                      <NavLink to="creatorHome" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaHome className="mr-5" /> Home
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink 
-                      to='/dashboard/addTask'
-                      className="flex items-center p-2 space-x-3 rounded-md">
-                        <FaRegCalendarPlus className="mr-5"></FaRegCalendarPlus>{" "}
-                        Add new Tasks
+                      <NavLink to="addTask" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaRegCalendarPlus className="mr-5" /> Add new Tasks
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink 
-                      to='/dashboard/myTask'
-                      
-                      className="flex items-center p-2 space-x-3 rounded-md">
-                        <FaScribd className="mr-5"></FaScribd> My Task’s
+                      <NavLink to="myTask" className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaScribd className="mr-5" /> My Tasks
                       </NavLink>
                     </li>
                     <li>
                       <NavLink className="flex items-center p-2 space-x-3 rounded-md">
-                        <FaCoins className="mr-5"></FaCoins> Purchase Coin
+                        <FaCoins className="mr-5" /> Purchase Coin
                       </NavLink>
                     </li>
                     <li>
                       <NavLink className="flex items-center p-2 space-x-3 rounded-md">
-                        <FaDollarSign className="mr-5"></FaDollarSign> Payment
-                        history
+                        <FaDollarSign className="mr-5" /> Payment history
                       </NavLink>
                     </li>
                   </>
-                ) : (
-                  <></>
-                )}
-
-                {/* admin navigation */}
-
-                {
-                  myUser?.role === 'Admin' ? <>
-                  <li>
-                  <NavLink className="flex items-center p-2 space-x-3 rounded-md">
-                    <FaHome className="mr-5"></FaHome> Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="flex items-center p-2 space-x-3 rounded-md">
-                    <FaUserShield className="mr-5"></FaUserShield> Manage Users
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="flex items-center p-2 space-x-3 rounded-md">
-                    <FaTasks className="mr-5"></FaTasks> Manage Task
-                  </NavLink>
-                </li>
-                  </> : <>
-                  
-                  
+                ) : myUser?.role === "Admin" ? (
+                  <>
+                    <li>
+                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaHome className="mr-5" /> Home
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaUserShield className="mr-5" /> Manage Users
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                        <FaTasks className="mr-5" /> Manage Task
+                      </NavLink>
+                    </li>
                   </>
-                }
-
-                
-
-
-
+                ) : null}
               </ul>
             </div>
           </div>
         </div>
 
         <div className="flex-1">
-          <Outlet></Outlet>
+          <Outlet />
         </div>
       </div>
 
-      <div>
-        <Footer></Footer>
-      </div>
+      <Footer />
     </div>
   );
 };
