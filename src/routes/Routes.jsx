@@ -15,7 +15,6 @@ import Error from "../error/Error";
 import TaskDetails from "../pages/userDashboard/worker/tasklist/details/TaskDetails";
 import PrivateRoutes from "../pages/private/PrivateRoutes";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -24,62 +23,83 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "signIn",
-        element: <SignIn />
+        element: <SignIn />,
       },
       {
         path: "signUp",
-        element: <SignUp />
-      }
-    ]
+        element: <SignUp />,
+      },
+    ],
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      
+        <Dashboard />
+      
+    ),
     errorElement: <Error />,
-    loader: () => fetch('http://localhost:5000/users'),
+    loader: () => fetch("http://localhost:5000/users"),
     children: [
       {
         path: "workerHome",
-        element: <WorkerHome />
+        element: <PrivateRoutes>
+          <WorkerHome />
+        </PrivateRoutes>,
       },
       {
         path: "workerTask",
-        element: <TaskList />,
-        loader: () => fetch('http://localhost:5000/tasks')
+        element: <PrivateRoutes>
+          <TaskList />
+        </PrivateRoutes>,
+        loader: () => fetch("http://localhost:5000/tasks"),
       },
       {
         path: "workerTask/:id",
-        element:  <PrivateRoutes>
-          <TaskDetails/>
-        </PrivateRoutes>,
-        loader: ({ params }) => fetch(`http://localhost:5000/tasks/${params.id}`)
+        element: (
+          <PrivateRoutes>
+            <TaskDetails />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/tasks/${params.id}`),
       },
       {
         path: "workerSubmissions",
-        element: <PrivateRoutes>
-          <WorkerSubmission />
-        </PrivateRoutes>
+        element: (
+          <PrivateRoutes>
+            <WorkerSubmission />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "workerWithdraw",
-        element: <Withdraw />
+        element:<PrivateRoutes>
+           <Withdraw />
+        </PrivateRoutes>,
       },
       {
         path: "creatorHome",
-        element: <CreatorHome />
+        element:<PrivateRoutes>
+           <CreatorHome />
+        </PrivateRoutes>,
       },
       {
         path: "addTask",
-        element: <AddTask />
+        element: <PrivateRoutes>
+          <AddTask />
+        </PrivateRoutes>,
       },
       {
         path: "myTask",
-        element: <CreatorTask />
-      }
-    ]
-  }
+        element: <PrivateRoutes>
+          <CreatorTask />
+        </PrivateRoutes>,
+      },
+    ],
+  },
 ]);

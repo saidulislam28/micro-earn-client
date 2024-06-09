@@ -13,7 +13,7 @@ const CreatorHome = () => {
           <h2 className="mb-4 text-2xl font-semibold leading-tight">
             Contacts
           </h2>
-          <div className="">
+          <div className="overflow-x-auto">
             <table className="w-full p-6 text-xs text-left whitespace-nowrap">
               {/* <colgroup>
 				<col className="w-5" />

@@ -25,9 +25,9 @@ const Dashboard = () => {
     <div className="">
       <Navbar />
 
-      <div className="flex justify-around max-w-6xl mx-auto">
-        <div className="">
-          <div className="h-full min-h-[550px] p-3 space-y-2 w-60 bg-gray-700 text-gray-100">
+      <div className="flex flex-col lg:flex-row justify-around  max-w-6xl mx-auto">
+        <div>
+          <div className="h-full min-h-0 lg:min-h-[550px] p-3 space-y-2 w-full lg:w-60 bg-gray-700 text-gray-100">
             <div className="flex items-center p-2 space-x-4">
               <div>
                 <h2 className="text-lg font-semibold">{user?.displayName}</h2>

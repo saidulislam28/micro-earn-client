@@ -1,4 +1,4 @@
-import { FaDollarSign } from "react-icons/fa";
+import { FaCoins, FaDollarSign, FaTasks } from "react-icons/fa";
 import "./infocard.css";
 
 const CreatorCard = () => {
@@ -7,9 +7,9 @@ const CreatorCard = () => {
      <div className="bgblue">
       <div className="card-mine">
         <div className="flex flex-col items-center py-10">
-          <FaDollarSign className="text-5xl text-amber-400"></FaDollarSign>
+        <FaCoins className="text-4xl mr-4" />
 
-          <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
+        <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
           <h3 className="mt-2 text-3xl font-semibold">100</h3>
         </div>
       </div>
@@ -17,9 +17,9 @@ const CreatorCard = () => {
      <div className="bgblue">
       <div className="card-mine">
         <div className="flex flex-col items-center py-10">
-          <FaDollarSign className="text-5xl text-amber-400"></FaDollarSign>
+        <FaTasks className="text-4xl mr-4" />
 
-          <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
+        <h3 className="my-3 text-3xl font-semibold">Pending Tasks</h3>
           <h3 className="mt-2 text-3xl font-semibold">100</h3>
         </div>
       </div>
@@ -27,9 +27,9 @@ const CreatorCard = () => {
      <div className="bgblue">
       <div className="card-mine">
         <div className="flex flex-col items-center py-10">
-          <FaDollarSign className="text-5xl text-amber-400"></FaDollarSign>
+        <FaDollarSign className="text-4xl mr-4" />
 
-          <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
+          <h3 className="my-3 text-3xl font-semibold">Total Payment </h3>
           <h3 className="mt-2 text-3xl font-semibold">100</h3>
         </div>
       </div>
