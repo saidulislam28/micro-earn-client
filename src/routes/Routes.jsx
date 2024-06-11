@@ -14,6 +14,12 @@ import CreatorTask from "../pages/userDashboard/creator/creatorTask/CreatorTask"
 import Error from "../error/Error";
 import TaskDetails from "../pages/userDashboard/worker/tasklist/details/TaskDetails";
 import PrivateRoutes from "../pages/private/PrivateRoutes";
+import PurchaseCoin from "../pages/userDashboard/creator/purchase coin/PurchaseCoin";
+import PaymentHistory from "../pages/userDashboard/creator/Payment history/PaymentHistory";
+import AdminRoute from "./AdminRoute";
+import AdminHome from "../pages/userDashboard/admin/AdminHome/AdminHome";
+import ManageUsers from "../pages/userDashboard/admin/manageUsers/ManageUsers";
+import ManageTask from "../pages/userDashboard/admin/manageTask/ManageTask";
 
 export const router = createBrowserRouter([
   {
@@ -99,7 +105,38 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes>
           <CreatorTask />
         </PrivateRoutes>,
+      },{
+        path: "purchase",
+        element:<PrivateRoutes>
+          <PurchaseCoin></PurchaseCoin>
+        </PrivateRoutes>
       },
+      {
+        path: "paymentHistory",
+        element:<PrivateRoutes>
+          <PaymentHistory></PaymentHistory>
+        </PrivateRoutes>
+      },
+      // admin routes 
+      {
+        path: "adminHome",
+        element: <AdminRoute>
+          <AdminHome></AdminHome>
+        </AdminRoute>
+        
+      },
+      {
+        path: "manageUsers",
+        element: <AdminRoute>
+          <ManageUsers></ManageUsers>
+        </AdminRoute>
+      },
+      {
+        path:"manageTask",
+        element:<AdminRoute>
+          <ManageTask></ManageTask>
+        </AdminRoute>
+      }
     ],
   },
 ]);

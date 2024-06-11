@@ -16,11 +16,7 @@
   margin-bottom: 3rem;
 }
 
-.features-section .grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-}
+
 
 .features-section .grid.md\:grid-cols-3 {
   grid-template-columns: repeat(3, 1fr);

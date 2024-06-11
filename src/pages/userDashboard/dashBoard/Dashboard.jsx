@@ -83,30 +83,40 @@ const Dashboard = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to='purchase'
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaCoins className="mr-5" /> Purchase Coin
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to="paymentHistory"
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaDollarSign className="mr-5" /> Payment history
                       </NavLink>
                     </li>
                   </>
-                ) : myUser?.role === "Admin" ? (
+                ) : myUser?.role === "admin" ? (
                   <>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to="adminHome"
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaHome className="mr-5" /> Home
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to="manageUsers"
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaUserShield className="mr-5" /> Manage Users
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+                      <NavLink 
+                      to="manageTask"
+                      className="flex items-center p-2 space-x-3 rounded-md">
                         <FaTasks className="mr-5" /> Manage Task
                       </NavLink>
                     </li>

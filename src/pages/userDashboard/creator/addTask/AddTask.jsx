@@ -1,13 +1,24 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 
 const AddTask = () => {
 
 	const {user} = useContext(AuthContext);
+  const [userData, setUserData] = useState(null);
 
 	const axiosPublic = useAxiosPublic();
 
+
+	useEffect(() => {
+    axiosPublic.get(`/users/${user?.email}`)
+      .then((res) => {
+        setUserData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
 
 const handleAddTask = e =>{
@@ -26,6 +37,13 @@ const handleAddTask = e =>{
 		const creatorEmail = user?.email;
 		const creatorName = user?.displayName;
 
+
+		const totalCost = quantity * payableAmount ;
+
+		if(totalCost> userData?.coin){
+			return alert('Coin not available , please purchase coin')
+		}
+
 		const task = {
 			creatorName: creatorName,
 			creatorEmail: creatorEmail,
@@ -40,11 +58,19 @@ const handleAddTask = e =>{
 		}
 
 
-		axiosPublic.post('tasks', task)
+		axiosPublic.post('/tasks', {
+			task: task,
+			creatorEmail: creatorEmail,
+			totalCost: totalCost
+		})
 		.then(res =>{
-			if(res.data.insertedId){
-				console.log("mongo te task gese");
+			if(res.data.insertTask.insertedId && res.data.updateUserCoin.modifiedCount > 0){
+				console.log("mongo te task");
 			}
+			console.log(res.data);
+		})
+		.catch(error=>{
+			console.log(error);
 		})
 
 
@@ -68,13 +94,13 @@ const handleAddTask = e =>{
 			<form onSubmit={handleAddTask} className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
 				<div className="col-span-full sm:col-span-3">
 					<label htmlFor="firstname" className="text-sm">Task Title<sup>*</sup> </label>
-					<input id="Task Title" type="text" 
+					<input required id="Task Title" type="text" 
           name="taskTitle"
           placeholder="Task Title" className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
 				<div className="col-span-full sm:col-span-3">
 					<label htmlFor="lastname" className="text-sm">Task details<sup>*</sup></label>
-					<input  type="text" placeholder="Task Details" 
+					<input required  type="text" placeholder="Task Details" 
           name="taskDetails"
           className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
@@ -82,7 +108,7 @@ const handleAddTask = e =>{
 
 				<div className="col-span-full sm:col-span-3">
 					<label htmlFor="firstname" className="text-sm">Submission Information<sup>*</sup> </label>
-					<input id="Task Title" type="text" 
+					<input required id="Task Title" type="text" 
           name="submissionInfo"
           placeholder="submission info" className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
@@ -90,14 +116,14 @@ const handleAddTask = e =>{
 
 				<div className="col-span-full sm:col-span-3">
 					<label htmlFor="lastname" className="text-sm">Image URL<sup>*</sup></label>
-					<input  type="text" placeholder="https://ibb.co/exampleImage" 
+					<input required  type="text" placeholder="https://ibb.co/exampleImage" 
           name="imageURL" 
           className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
         
 				<div className="col-span-full sm:col-span-2">
 					<label htmlFor="city" className="text-sm">Task Quantity<sup>*</sup></label>
-					<input id="city" type="number" placeholder="Quantity" 
+					<input required id="city" type="number" placeholder="Quantity" 
 					name="quantity"
 					className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
@@ -106,7 +132,7 @@ const handleAddTask = e =>{
 
 				<div className="col-span-full sm:col-span-2">
 					<label htmlFor="state" className="text-sm">Payable Amount<sup>*</sup></label>
-					<input id="state" type="number" 
+					<input required id="state" type="number" 
 					name="payableAmount"
 					placeholder="Payable amount" className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
@@ -114,7 +140,7 @@ const handleAddTask = e =>{
 
 				<div className="col-span-full sm:col-span-2">
 					<label htmlFor="zip" className="text-sm">Last Completion Date</label>
-					<input id="zip" type="date" name="lastDate" placeholder="" className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
+					<input required id="zip" type="date" name="lastDate" placeholder="" className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-400 border-gray-700" />
 				</div>
 				<div className="col-span-full ">
 					

@@ -4,18 +4,16 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { FaDollarSign } from "react-icons/fa";
 
-
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
-  const [myUsers , setMyUsers] = useState([]);
+  const [myUsers, setMyUsers] = useState([]);
 
-  useState(() =>{
-
-    fetch('http://localhost:5000/users')
-    .then(res => res.json())
-    .then(data => setMyUsers(data))
-  },[])
+  useState(() => {
+    fetch("http://localhost:5000/users")
+      .then((res) => res.json())
+      .then((data) => setMyUsers(data));
+  }, []);
 
   const myUserCoin = myUsers.find((myUser) => user?.email === myUser?.email);
 
@@ -36,24 +34,26 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      {
-        user ? <li className="mr-2 font-bold">
-        <NavLink
-          to="/dashboard"
-          style={({ isActive }) => ({
-            color: isActive ? "#51323B" : "#545e6f",
-            background: isActive ? " #E2E8F0" : "",
-          })}
-        >
-          Dashboard
-        </NavLink>
-      </li> : ""
-      }
+      {user ? (
+        <li className="mr-2 font-bold">
+          <NavLink
+            to="/dashboard"
+            style={({ isActive }) => ({
+              color: isActive ? "#51323B" : "#545e6f",
+              background: isActive ? " #E2E8F0" : "",
+            })}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      ) : (
+        ""
+      )}
     </>
   );
 
   return (
-    <div className="navbar bg-base-100  container mx-auto">
+    <div className="navbar  container mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -119,19 +119,58 @@ const Navbar = () => {
         )}
       </div> */}
       <div className=" navbar-end">
-   
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-        </div>
+        {user ? (
+        <div className="flex items-center">
+           <div className="font-semibold  border-2 border-yellow-500 px-2 rounded-xl bg-amber-200 flex items-center">
+                <FaDollarSign></FaDollarSign>
+                <span>{myUserCoin?.coin}</span>
+              </div>
+          <div className="dropdown dropdown-end">
+             
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt="no photo" src={user?.photoURL} />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <p>{user?.displayName}</p>
+                </li>
+                <li>
+                  <p>{user?.email}</p>
+                </li>
+                <li onClick={handleLogOut}>
+                  <p>Logout</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <a
+              target="blank"
+              className="btn btn-link "
+              href="https://www.youtube.com/"
+            >
+              Watch Demo
+            </a>
+            <Link to="/signUp">
+              <p className="btn  bg-[#4c88b6] text-black">Register</p>
+            </Link>
+
+            <Link to="/signIn">
+              <p className="btn text-black  bg-[#dce86f]">Login</p>
+            </Link>
+          </div>
+        )}
       </div>
-      <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-        
-        <li><a>Logout</a></li>
-      </ul>
-    </div>
-  </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ const TaskCard = ({task}) => {
   return (
     <div className="card card-compact bg-base-100 shadow-xl card-style">
       <figure>
-        <img src={task.imageURL} alt="Shoes" />
+        <img src={task.imageURL} alt="" />
       </figure>
       <div className="card-body text-start">
         <h2 className="card-title">{task.taskTitle}</h2>
