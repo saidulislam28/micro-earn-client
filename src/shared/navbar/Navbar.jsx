@@ -165,7 +165,7 @@ const Navbar = () => {
             <Link to="/signUp">
               <p className="btn  bg-[#4c88b6] text-black">Register</p>
             </Link>
-
+{/* this is login  */}
             <Link to="/signIn">
               <p className="btn text-black  bg-[#dce86f]">Login</p>
             </Link>
