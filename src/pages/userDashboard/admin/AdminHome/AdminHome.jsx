@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
-
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 
 const AdminHome = () => {
   const [stats, setStats] = useState({ totalUsers: 0, totalCoins: 0 });
-
   const [withdraws, setWithdraws] = useState([]);
 
   const axiosPublic = useAxiosPublic();
 
+  // Fetch user statistics
   useEffect(() => {
     axiosPublic
       .get("/userStats")
@@ -18,18 +19,45 @@ const AdminHome = () => {
       .catch((error) => {
         console.error("Error fetching user stats:", error);
       });
-  }, []);
+  }, [axiosPublic]);
 
-useEffect(()=>{
-  axiosPublic.get('/withdraws')
-  .then(res=>{
-    setWithdraws(res.data)
-    console.log(res.data)
-  })
-  .catch(error =>{
-    console.log(error)
-  })
-},[])
+  // Fetch withdrawal requests
+  useEffect(() => {
+    axiosPublic
+      .get("/withdraws")
+      .then((res) => {
+        setWithdraws(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching withdrawal requests:", error);
+      });
+  }, [axiosPublic]);
+
+  // Handle payment success
+  const handlePaymentSuccess = (id, workerEmail, withdrawCoin) => {
+    axiosPublic
+      .delete(`/withdrawRequests/${id}`, {
+        data: { workerEmail, withdrawCoin },
+      })
+      .then((response) => {
+        if (response.data.deleteResult.deletedCount > 0) {
+          setWithdraws(withdraws.filter((withdrawal) => withdrawal._id !== id));
+          Swal.fire({
+            icon: "success",
+            title: "Payment Success",
+            text: "Withdrawal request processed successfully",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to process withdrawal request", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to process withdrawal request",
+        });
+      });
+  };
 
   return (
     <div>
@@ -61,7 +89,7 @@ useEffect(()=>{
         </div>
       </section>
       <section>
-        <h2 className="text-3xl font-bold text-center my-12  w-2/4 mx-auto border-y-2 py-4 border-amber-300">
+        <h2 className="text-3xl font-bold text-center my-12 w-2/4 mx-auto border-y-2 py-4 border-amber-300">
           Withdraw Request
         </h2>
         <div className="overflow-x-auto">
@@ -71,7 +99,7 @@ useEffect(()=>{
                 <th>#</th>
                 <th>Worker Name</th>
                 <th>Withdraw Coin</th>
-                <th>Withdraw amount</th>
+                <th>Withdraw Amount</th>
                 <th>Number</th>
                 <th>System</th>
                 <th>Time</th>
@@ -79,21 +107,31 @@ useEffect(()=>{
               </tr>
             </thead>
             <tbody>
-              {
-                withdraws.map((withdraw, index) =><tr key={withdraw._id}>
+              {withdraws.map((withdraw, index) => (
+                <tr key={withdraw._id}>
                   <th>{index + 1}</th>
                   <td>{withdraw.userName}</td>
-                  <td>Cy Ganderton</td>
-                  <td>Cy Ganderton</td>
-                  <td>Cy Ganderton</td>
-                  <td>Cy Ganderton</td>
-                  <td>Cy Ganderton</td>
+                  <td>{withdraw.coin}</td>
+                  <td>{withdraw.withdrawAmount}</td>
+                  <td>{withdraw.accountNumber}</td>
+                  <td>{withdraw.paymentSystem}</td>
+                  <td>{withdraw.current_date}</td>
                   <td>
-                    <button className="text-green-500 py-2">Approve</button>
+                    <button
+                      onClick={() =>
+                        handlePaymentSuccess(
+                          withdraw._id,
+                          withdraw.worker_email,
+                          withdraw.coin
+                        )
+                      }
+                      className="text-green-500 py-2"
+                    >
+                      Approve
+                    </button>
                   </td>
-                </tr>)
-              }
-              
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
