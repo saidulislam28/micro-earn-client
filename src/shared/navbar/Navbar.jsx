@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
@@ -6,6 +6,7 @@ import { FaDollarSign } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [myUsers, setMyUsers] = useState([]);
 
@@ -18,7 +19,7 @@ const Navbar = () => {
   const myUserCoin = myUsers.find((myUser) => user?.email === myUser?.email);
 
   const handleLogOut = () => {
-    logOut().then().catch();
+    logOut().then(navigate('/')).catch();
   };
 
   const navLinks = (

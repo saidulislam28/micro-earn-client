@@ -6,7 +6,8 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup} from "firebase/auth";
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-
+import 'sweetalert2/src/sweetalert2.scss'
+import Swal from "sweetalert2";
 
 const SignIn = () => {
 
@@ -29,13 +30,22 @@ console.log(email, password);
 
 signIN(email, password)
 .then((result) =>{
-  alert('Welcome back')
-  console.log(result);
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Welcome Back",
+    showConfirmButton: false,
+    timer: 1500
+  });
   navigate(location?.state ? location.state : "/");
   
 }).catch((error)=>{
   console.log(error);
-  alert('something is going wrong')
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Something went wrong!"
+  });
 })
 
 e.target.reset()
@@ -52,7 +62,8 @@ console.log(result.user);
   const name = result.user.displayName;
   const email = result.user.email;
   const photo = result.user.photoURL;
-  const role = 'worker';
+  
+  const role = 'worker'.toLocaleLowerCase;
   const coin = 10;
 
   const userInfo = {
@@ -65,16 +76,26 @@ console.log(result.user);
   axiosPublic.post('/users', userInfo)
   .then(res =>{
     if(res.data.insertedId){
-      console.log("send to data base and logged in");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Successfully login with Google",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   })
   .catch(error =>{
-    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!"
+    });
   })
 
 
 
-  navigate(location?.state ? location.state : "/dashboard");
+  navigate(location?.state ? location.state : "/");
   }
  
  

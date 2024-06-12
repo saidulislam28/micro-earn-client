@@ -1,6 +1,6 @@
 
 
-const SubmissionTable = () => {
+const SubmissionTable = ({approved}) => {
   return (
     <div className="overflow-x-auto border my-20">
   <table className="table">
@@ -15,14 +15,16 @@ const SubmissionTable = () => {
       </tr>
     </thead>
     <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>title of something</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-        <td>Blue</td>
-      </tr>
+      {
+        approved.map((task, idx) =><tr key={idx}>
+          <th>{idx + 1}</th>
+          <td>{task.task_title}</td>
+          <td>$ {task.payable_amount}</td>
+          <td>{task.creator_name}</td>
+          <td className="text-green-500">{task.status}</td>
+        </tr>)
+      }
+      
     </tbody>
   </table>
 </div>

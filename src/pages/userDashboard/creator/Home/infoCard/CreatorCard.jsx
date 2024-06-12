@@ -23,7 +23,7 @@ const CreatorCard = ({userData,tasks, submissions}) => {
         <FaTasks className="text-4xl mr-4 text-green-500" />
 
         <h3 className="my-3 text-3xl font-semibold">Pending Tasks</h3>
-          <h3 className="mt-2 text-3xl font-semibold">{submissions?.length}</h3>
+          <h3 className="mt-2 text-3xl font-semibold">{tasks.length}</h3>
         </div>
       </div>
     </div>

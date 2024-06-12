@@ -5,7 +5,8 @@ import { AuthContext } from "../../provider/AuthProvider";
 import "./css/signup.css";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
-
+import 'sweetalert2/src/sweetalert2.scss'
+import Swal from "sweetalert2";
 
 
 const uppercaseRegex = /[A-Z]/;
@@ -33,7 +34,7 @@ const SignUp = () => {
       earnCoin = 20;
     }
 
-   console.log(role, earnCoin);
+   
   
 
     if (password.length < 8) {
@@ -66,15 +67,23 @@ const SignUp = () => {
             };
             axiosPublic.post('/users', userInfo)
             .then((res) =>{
-              console.log('user created to data base');
               if(res.data.insertedId){
-                alert('going to database and signup done')
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Sign Up successful",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
               }
             })
           })
           .catch((error) => {
-            alert("something went wrong");
-            console.log(error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!"
+            });
           });
       })
       .catch((err) => {

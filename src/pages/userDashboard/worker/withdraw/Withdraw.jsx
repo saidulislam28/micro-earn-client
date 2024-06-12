@@ -2,76 +2,78 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 
-
 const Withdraw = () => {
-
   const { user } = useContext(AuthContext);
 
   const axiosPublic = useAxiosPublic();
 
-  const [myUsers , setMyUsers] = useState([]);
+  const [myUsers, setMyUsers] = useState([]);
 
-  useState(() =>{
-
-    fetch('http://localhost:5000/users')
-    .then(res => res.json())
-    .then(data => setMyUsers(data))
-  },[])
+  useState(() => {
+    fetch("http://localhost:5000/users")
+      .then((res) => res.json())
+      .then((data) => setMyUsers(data));
+  }, []);
 
   const myUserCoin = myUsers.find((myUser) => user?.email === myUser?.email);
 
-
-
- 
-  const [coins, setCoins] = useState(0);
+  const [coin, setCoin] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
-  const [paymentSystem, setPaymentSystem] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
+  const [paymentSystem, setPaymentSystem] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
 
   // Suppose the user has 300 coins
-  const userCoins = myUserCoin?.coin; 
+  const userCoins = myUserCoin?.coin;
   const maxWithdrawalAmount = userCoins / 20;
 
   const handleCoinsChange = (e) => {
     const coinValue = parseInt(e.target.value, 10) || 0;
-    setCoins(coinValue);
+    setCoin(coinValue);
     setWithdrawAmount(coinValue / 20);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (withdrawAmount > maxWithdrawalAmount) {
-      alert('The withdrawal amount exceeds the maximum allowable amount.');
+      alert("The withdrawal amount exceeds the maximum allowable amount.");
     } else {
-
-      if(withdrawAmount < 0){
-      return alert('invalid value')
+      if (withdrawAmount < 0) {
+        return alert("invalid value");
       }
-
+      const newCoinBalance = userCoins - coin;
       const withdrawalRequest = {
-        coins,
+        coin,
         withdrawAmount,
         paymentSystem,
         accountNumber,
         userEmail: user?.email,
         userName: user?.displayName,
-        current_date: new Date().toISOString().split('T')[0],
+        current_date: new Date().toISOString().split("T")[0],
       };
 
-axiosPublic.post('/withdraws', withdrawalRequest)
-.then(res =>{
-if(res.data.insertedId){
-  console.log('with draw request confirmed');
-}
-})
-.catch(error =>{
-  console.log(error);
-})
-      
+      axiosPublic
+        .post("/withdraws", withdrawalRequest)
+        .then((res) => {
+          if (res.data.insertedId) {
+            axiosPublic.put(`/users/${user?.email}`, { coin: newCoinBalance })
+            .then((res) => {
+              console.log("User's coin balance updated successfully", res.data);
+              
+              setCoin(0);
+              setWithdrawAmount(0);
+              setPaymentSystem("");
+              setAccountNumber("");
+            })
+            .catch((error) => {
+              console.error("Error updating user's coin balance:", error);
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
-
-
 
   return (
     <div className="h-full flex items-center">
@@ -79,22 +81,31 @@ if(res.data.insertedId){
         <div className="container flex flex-col mx-auto lg:flex-row">
           <div className="flex flex-col w-full p-6 lg:w-2/3 md:p-8 lg:p-12">
             <h2 className="text-3xl font-semibold leading-none">Withdraw</h2>
-            <p className="mt-2 mb-5 text-sm">Your Maximum Withdrawal Amount: ${maxWithdrawalAmount.toFixed(2)}</p>
+            <p className="mt-2 mb-5 text-sm">
+              Your Maximum Withdrawal Amount: ${maxWithdrawalAmount.toFixed(2)}
+            </p>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="coins" className="block text-sm font-medium">Coins to Withdraw:</label>
+                <label htmlFor="coins" className="block text-sm font-medium">
+                  Coins to Withdraw:
+                </label>
                 <input
                   type="number"
                   id="coins"
                   name="coins"
-                  value={coins}
+                  value={coin}
                   onChange={handleCoinsChange}
                   className="w-full p-2 border rounded text-black"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="withdrawAmount" className="block text-sm font-medium">Withdraw Amount ($):</label>
+                <label
+                  htmlFor="withdrawAmount"
+                  className="block text-sm font-medium"
+                >
+                  Withdraw Amount ($):
+                </label>
                 <input
                   type="number"
                   id="withdrawAmount"
@@ -105,7 +116,12 @@ if(res.data.insertedId){
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="paymentSystem" className="block text-sm font-medium">Select Payment System:</label>
+                <label
+                  htmlFor="paymentSystem"
+                  className="block text-sm font-medium"
+                >
+                  Select Payment System:
+                </label>
                 <select
                   id="paymentSystem"
                   name="paymentSystem"
@@ -121,7 +137,12 @@ if(res.data.insertedId){
                 </select>
               </div>
               <div className="mb-4">
-                <label htmlFor="accountNumber" className="block text-sm font-medium">Account Number:</label>
+                <label
+                  htmlFor="accountNumber"
+                  className="block text-sm font-medium"
+                >
+                  Account Number:
+                </label>
                 <input
                   type="text"
                   id="accountNumber"
@@ -132,7 +153,9 @@ if(res.data.insertedId){
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary mt-2">Withdraw</button>
+              <button type="submit" className="btn btn-primary mt-2">
+                Withdraw
+              </button>
             </form>
           </div>
         </div>

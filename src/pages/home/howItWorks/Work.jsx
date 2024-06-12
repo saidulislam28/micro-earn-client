@@ -9,7 +9,7 @@ const Work = () => {
     <div className='bg-[#f9f9f9] my-10'>
 
 
-      <h2 className='text-4xl font-bold text-center'>How it works</h2>
+      <h2 className='text-4xl font-bold text-center  my-10  w-1/4 mx-auto border-y-2 py-4 border-amber-300 '>How it works</h2>
 
     <div className="steps-container flex flex-col lg:flex-row justify-around  flex-wrap container mx-auto">
     <div className="text-center max-w-[300px] m-5 border py-10 px-5 bg-slate-200 rounded-xl">
@@ -19,7 +19,7 @@ const Work = () => {
     </div>
     <div className="text-center max-w-[300px] m-5 py-10 px-5 border rounded-xl bg-slate-200">
       <FontAwesomeIcon className='bg-gradient-to-r from-indigo-200 via-purple-400 to-pink-300 p-1' icon={faTasks} size="3x" />
-      <h3 className='m-5 font-semibold text-2xl'>Complete Tasks</h3>
+      <h3 className='m-5 font-semibold text-2xl '>Complete Tasks</h3>
       <p className='mt-3 text-lg'>Browse through available tasks and choose the ones that suit your skills. Complete tasks to earn coins.</p>
     </div>
     <div className="text-center max-w-[300px] m-5 py-10 px-5 border rounded-xl bg-slate-200">
