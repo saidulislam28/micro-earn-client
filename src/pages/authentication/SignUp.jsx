@@ -59,11 +59,9 @@ const SignUp = () => {
             const userInfo = {
               name: name,
               email: email,
-              
               photo: photo,
               role: role,
               coin: earnCoin
-
             };
             axiosPublic.post('/users', userInfo)
             .then((res) =>{
@@ -76,6 +74,7 @@ const SignUp = () => {
                   timer: 1500
                 });
               }
+              navigate('/')
             })
           })
           .catch((error) => {

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const Withdraw = () => {
   const { user } = useContext(AuthContext);
@@ -57,7 +58,13 @@ const Withdraw = () => {
           if (res.data.insertedId) {
             axiosPublic.put(`/users/${user?.email}`, { coin: newCoinBalance })
             .then((res) => {
-              console.log("User's coin balance updated successfully", res.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Request Received",
+                showConfirmButton: false,
+                timer: 1500
+              });
               
               setCoin(0);
               setWithdrawAmount(0);

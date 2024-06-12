@@ -21,7 +21,7 @@ const SubmissionTable = ({approved}) => {
           <td>{task.task_title}</td>
           <td>$ {task.payable_amount}</td>
           <td>{task.creator_name}</td>
-          <td className="text-green-500">{task.status}</td>
+          <td className="text-green-500">{task.status}d</td>
         </tr>)
       }
       

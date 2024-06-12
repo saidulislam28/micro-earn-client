@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
-
+import Swal from "sweetalert2";
+import 'sweetalert2/src/sweetalert2.scss'
 const AddTask = () => {
 
 	const {user} = useContext(AuthContext);
@@ -41,7 +42,11 @@ const handleAddTask = e =>{
 		const totalCost = quantity * payableAmount ;
 
 		if(totalCost> userData?.coin){
-			return alert('Coin not available , please purchase coin')
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "Something went wrong! Don't have enough coin?"
+			});
 		}
 
 		const task = {
@@ -65,19 +70,20 @@ const handleAddTask = e =>{
 		})
 		.then(res =>{
 			if(res.data.insertTask.insertedId && res.data.updateUserCoin.modifiedCount > 0){
-				console.log("mongo te task");
+				Swal.fire({
+					position: "top-end",
+					icon: "success",
+					title: "Your task is Added",
+					showConfirmButton: false,
+					timer: 1500
+				});
 			}
+			e.target.reset();
 			console.log(res.data);
 		})
 		.catch(error=>{
 			console.log(error);
 		})
-
-
-		// console.log(taskTitle, taskDetails, submissionInfo, imageURL,quantity, payableAmount, lastDate, creatorEmail, creatorName);
-	
-
-
 
 }
 

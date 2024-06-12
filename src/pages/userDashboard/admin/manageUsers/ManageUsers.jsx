@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
-
+import 'sweetalert2/src/sweetalert2.scss'
+import Swal from "sweetalert2";
 const ManageUsers = () => {
   const axiosPublic = useAxiosPublic();
   const [workers, setWorkers] = useState([]);
@@ -18,6 +19,15 @@ const ManageUsers = () => {
       .put("/updateRole", { id, newRole })
       .then((res) => {
         if (res.data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Role changed",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+
           setWorkers(
             workers.map((worker) =>
               worker._id === id ? { ...worker, role: newRole } : worker
@@ -33,7 +43,13 @@ const ManageUsers = () => {
     axiosPublic
       .delete("/deleteUser", { data: { id } })
       .then((res) => {
-        console.log(res.data);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Deleted Successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
         setWorkers(workers.filter((worker) => worker._id !== id));
       })
       .catch((err) => console.log(err));

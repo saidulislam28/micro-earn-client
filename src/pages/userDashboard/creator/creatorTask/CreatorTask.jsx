@@ -2,7 +2,8 @@ import  { useContext, useEffect, useState } from "react";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import { FaPen } from "react-icons/fa";
-
+import Swal from "sweetalert2";
+import 'sweetalert2/src/sweetalert2.scss'
 const CreatorTask = () => {
   const { user } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
@@ -24,7 +25,7 @@ const CreatorTask = () => {
 
   const handleUpdate = (task) => {
     setSelectedTask(task);
-    document.getElementById('update-modal').checked = true; // Open the modal
+    document.getElementById('update-modal').checked = true; 
   };
 
   const handleSubmit = async (e) => {
@@ -47,7 +48,13 @@ const CreatorTask = () => {
         ...updatedTask
       }).then(res =>{
         if(res.data.modifiedCount>0){
-          console.log("updated done");
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your task has been updated",
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
       })
 
@@ -69,11 +76,17 @@ const CreatorTask = () => {
         },
       });
       
-      console.log(response.data);
+      
       
       if (response.data.deleteResult.deletedCount > 0) {
 
-        console.log("successfully update and deleted");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successfully Deleted",
+          showConfirmButton: false,
+          timer: 1500
+        });
         setTasks(tasks.filter(t => t._id !== id));
       }
     } catch (error) {

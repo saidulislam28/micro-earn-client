@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../../../provider/AuthProvider";
 import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import 'sweetalert2/src/sweetalert2.scss'
 
 const TaskDetails = () => {
   const data = useLoaderData();
@@ -24,6 +26,8 @@ const TaskDetails = () => {
 
   const handleSubmitTask = e =>{
     e.preventDefault();
+
+   
 
     const form = new FormData(e.currentTarget);
     const submission_Details = form.get("submission_Details");
@@ -50,8 +54,14 @@ const TaskDetails = () => {
 axiosPublic.post('submissions', submission)
 .then(res=>{
   if(res.data.insertedId){
-    console.log("submission send to mongo server");
-    
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Successfully submitted",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    e.target.reset()
   }
 })
 .catch(error =>console.log(error))
