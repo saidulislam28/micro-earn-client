@@ -24,7 +24,7 @@ const SignUp = () => {
     const email = form.get("email");
     const password = form.get("password");
     const photo = form.get("photo");
-    const role = form.get("role");
+    const role = form.get("role").toLowerCase();
     let earnCoin = 10;
 
 
@@ -141,8 +141,8 @@ const SignUp = () => {
               name="role"
               className="rounded-md px-6 py-2 border border-green-400"
             >
-              <option value="Worker">Worker</option>
-              <option value="Creator">Creator</option>
+              <option value="worker">Worker</option>
+              <option value="creator">Creator</option>
               
             </select>
        

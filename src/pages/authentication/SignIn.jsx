@@ -59,7 +59,7 @@ const SignIn = () => {
           const email = result.user.email;
           const photo = result.user.photoURL;
 
-          const role = "worker".toLocaleLowerCase;
+          const role = "worker".toLowerCase();
           const coin = 10;
 
           const userInfo = {
