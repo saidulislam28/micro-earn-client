@@ -5,6 +5,8 @@ import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 const AdminHome = () => {
   const [stats, setStats] = useState({ totalUsers: 0, totalCoins: 0 });
 
+  const [withdraws, setWithdraws] = useState([]);
+
   const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
@@ -17,6 +19,17 @@ const AdminHome = () => {
         console.error("Error fetching user stats:", error);
       });
   }, []);
+
+useEffect(()=>{
+  axiosPublic.get('/withdraws')
+  .then(res=>{
+    setWithdraws(res.data)
+    console.log(res.data)
+  })
+  .catch(error =>{
+    console.log(error)
+  })
+},[])
 
   return (
     <div>
@@ -66,18 +79,21 @@ const AdminHome = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Cy Ganderton</td>
-                <td>Cy Ganderton</td>
-                <td>Cy Ganderton</td>
-                <td>Cy Ganderton</td>
-                <td>Cy Ganderton</td>
-                <td>
-                  <button className="text-green-500 py-2">Approve</button>
-                </td>
-              </tr>
+              {
+                withdraws.map((withdraw, index) =><tr key={withdraw._id}>
+                  <th>{index + 1}</th>
+                  <td>{withdraw.userName}</td>
+                  <td>Cy Ganderton</td>
+                  <td>Cy Ganderton</td>
+                  <td>Cy Ganderton</td>
+                  <td>Cy Ganderton</td>
+                  <td>Cy Ganderton</td>
+                  <td>
+                    <button className="text-green-500 py-2">Approve</button>
+                  </td>
+                </tr>)
+              }
+              
             </tbody>
           </table>
         </div>

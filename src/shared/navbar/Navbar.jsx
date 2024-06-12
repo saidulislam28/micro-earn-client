@@ -11,7 +11,7 @@ const Navbar = () => {
   const [myUsers, setMyUsers] = useState([]);
 
   useState(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://micro-earn-serverside.vercel.app/workers/users")
       .then((res) => res.json())
       .then((data) => setMyUsers(data));
   }, []);

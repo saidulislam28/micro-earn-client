@@ -12,19 +12,19 @@ const InfoCards = ({data, submissions, totalEarnings}) => {
         <div className="flex flex-col items-center py-10 border-2 border-green-300 rounded-xl">
         <i className="fas fa-coins text-5xl text-yellow-500"></i>
 
-          <h3 className="my-3 text-3xl font-semibold">Available Coins</h3>
+          <h3 className="my-3 text-3xl font-semibold text-center">Available Coins</h3>
           <h3 className="mt-2 text-3xl font-semibold">{data?.coin}</h3>
         </div>
         <div className="flex flex-col items-center py-10 border-2 border-green-300 rounded-xl">
         <i className="fas fa-tasks text-5xl text-blue-500"></i>
 
-          <h3 className="my-3 text-3xl font-semibold">Total Submissions</h3>
+          <h3 className="my-3 text-3xl font-semibold text-center">Total Submissions</h3>
           <h3 className="mt-2 text-3xl font-semibold">{submissions?.length}</h3>
         </div>
         <div className="flex flex-col items-center py-10 border-2 border-green-300 rounded-xl">
         <i className="fas fa-dollar-sign text-5xl text-green-500"></i>
 
-          <h3 className="my-3 text-3xl font-semibold">Total Earnings</h3>
+          <h3 className="my-3 text-3xl font-semibold text-center">Total Earnings</h3>
           <h3 className="mt-2 text-3xl font-semibold">{totalEarnings}</h3>
         </div>
        

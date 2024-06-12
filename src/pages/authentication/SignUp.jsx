@@ -141,8 +141,8 @@ const SignUp = () => {
               name="role"
               className="rounded-md px-6 py-2 border border-green-400"
             >
-              <option value="worker">Worker</option>
-              <option value="creator">Creator</option>
+              <option value="worker">worker</option>
+              <option value="creator">creator</option>
               
             </select>
        

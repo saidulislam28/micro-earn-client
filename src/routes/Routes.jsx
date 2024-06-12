@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
       
     ),
     errorElement: <Error />,
-    loader: () => fetch("http://localhost:5000/users"),
+    loader: () => fetch("https://micro-earn-serverside.vercel.app/users"),
     children: [
       {
         path: "workerHome",
@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes>
           <TaskList />
         </PrivateRoutes>,
-        loader: () => fetch("http://localhost:5000/tasks"),
+        loader: () => fetch("https://micro-earn-serverside.vercel.app/tasks"),
       },
       {
         path: "workerTask/:id",
@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tasks/${params.id}`),
+          fetch(`https://micro-earn-serverside.vercel.app/tasks/${params.id}`),
       },
       {
         path: "workerSubmissions",
