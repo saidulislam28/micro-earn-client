@@ -26,8 +26,6 @@ const handleAddTask = e =>{
 	e.preventDefault();
 
 	const form = new FormData(e.currentTarget);
-
-
     const taskTitle = form.get("taskTitle");
     const taskDetails = form.get("taskDetails");
     const submissionInfo = form.get("submissionInfo");
@@ -95,7 +93,7 @@ const handleAddTask = e =>{
 		<div className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-gray-700">
 			<div className="space-y-2 col-span-full lg:col-span-1">
 				<p className="font-medium">Personal Inormation</p>
-				<p className="text-xs">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci fuga autem eum!</p>
+				
 			</div>
 			<form onSubmit={handleAddTask} className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
 				<div className="col-span-full sm:col-span-3">

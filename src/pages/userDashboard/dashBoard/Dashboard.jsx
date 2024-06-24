@@ -65,7 +65,7 @@ const Dashboard = () => {
                       </NavLink>
                     </li>
                   </>
-                ) : myUser?.role === "Creator" ? (
+                ) : myUser?.role === "creator" ? (
                   <>
                     <li>
                       <NavLink to="creatorHome" className="flex items-center p-2 space-x-3 rounded-md">

@@ -1,8 +1,9 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./navbar.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { FaDollarSign } from "react-icons/fa";
+import { IoIosNotifications } from "react-icons/io";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -10,16 +11,20 @@ const Navbar = () => {
 
   const [myUsers, setMyUsers] = useState([]);
 
-  useState(() => {
-    fetch("https://micro-earn-serverside.vercel.app/workers/users")
+  useEffect(() => {
+    fetch("https://micro-earn-serverside.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setMyUsers(data));
   }, []);
+  // console.log(user);
 
   const myUserCoin = myUsers.find((myUser) => user?.email === myUser?.email);
+  // console.log(myUserCoin);
 
   const handleLogOut = () => {
-    logOut().then(navigate('/')).catch();
+    logOut()
+      .then(() => navigate("/"))
+      .catch();
   };
 
   const navLinks = (
@@ -53,8 +58,11 @@ const Navbar = () => {
     </>
   );
 
+  const location = useLocation();
+
+
   return (
-    <div className="navbar  container mx-auto">
+    <div className="navbar container mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -80,7 +88,7 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to="/" className="animate__animated  animate__headShake">
+        <Link to="/" className="animate__animated animate__headShake">
           <span className="text-lg md:text-2xl lg:text-4xl font-extrabold bg-gradient-to-r from-sky-700 via-blue-slate to-slate-200 text-transparent bg-clip-text animate-gradient bg-300%">
             MicroEarn
           </span>
@@ -89,52 +97,22 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
-      {/* <div className="navbar-end">
-        {user ? (
-          <div className="flex items-center gap-2">
-           <div className="font-semibold  border-2 border-yellow-500 px-3 py-2 rounded-xl bg-amber-200 flex items-center">
-            <FaDollarSign></FaDollarSign>
-            <span>{myUserCoin?.coin}</span></div>
-            <button onClick={handleLogOut} className="font-semibold btn">
-              Log Out
-            </button>
-            <img className="h-12 rounded-full w-12" src={user.photoURL} alt="" />
-          </div>
-        ) : (
-          <div className="flex items-center gap-2">
-            <a
-              target="blank"
-              className="btn btn-link "
-              href="https://www.youtube.com/"
-            >
-              Watch Demo
-            </a>
-            <Link to="/signUp">
-              <p className="btn  bg-[#4c88b6] text-black">Register</p>
-            </Link>
 
-            <Link to="/signIn">
-              <p className="btn text-black  bg-[#dce86f]">Login</p>
-            </Link>
-          </div>
-        )}
-      </div> */}
-      <div className=" navbar-end">
+      <div className="navbar-end">
         {user ? (
-        <div className="flex items-center">
-           <div className="font-semibold  border-2 border-yellow-500 px-2 rounded-xl bg-amber-200 flex items-center">
-                <FaDollarSign></FaDollarSign>
-                <span>{myUserCoin?.coin}</span>
-              </div>
-          <div className="dropdown dropdown-end">
-             
+          <div className="flex items-center">
+            <div className="font-semibold border-2 border-yellow-500 px-2 rounded-xl bg-amber-200 flex items-center">
+              <FaDollarSign />
+              <span>{myUserCoin?.coin}</span>
+            </div>
+            <div className="dropdown dropdown-end ml-2">
               <div
                 tabIndex={0}
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img alt="no photo" src={user?.photoURL} />
+                  <img alt="User Profile" src={user?.photoURL} />
                 </div>
               </div>
               <ul
@@ -142,33 +120,68 @@ const Navbar = () => {
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <p>{user?.displayName}</p>
+                  <p className="text-gray-400">{user?.displayName}</p>
                 </li>
                 <li>
-                  <p>{user?.email}</p>
+                  <p className="text-gray-400">{user?.email}</p>
                 </li>
                 <li onClick={handleLogOut}>
-                  <p>Logout</p>
+                  <p className="text-gray-400">Logout</p>
                 </li>
               </ul>
             </div>
+            {location.pathname.startsWith('/dashboard') && (
+              <div>
+                <IoIosNotifications className="text-3xl text-amber-500" />
+              </div>
+            )}
           </div>
         ) : (
-          <div className="flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <a
               target="blank"
-              className="btn btn-link "
+              className="btn btn-link"
               href="https://www.youtube.com/"
             >
               Watch Demo
             </a>
             <Link to="/signUp">
-              <p className="btn  bg-[#4c88b6] text-black">Register</p>
+              <p className="btn bg-[#4c88b6] text-black">Register</p>
             </Link>
-{/* this is login  */}
             <Link to="/signIn">
-              <p className="btn text-black  bg-[#dce86f]">Login</p>
+              <p className="btn text-black bg-[#dce86f]">Login</p>
             </Link>
+          </div>
+        )}
+        {!user && (
+          <div className="dropdown lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost">
+              More
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 right-0"
+            >
+              <li>
+                <a
+                  target="blank"
+                  className="w-full text-left"
+                  href="https://www.youtube.com/"
+                >
+                  Watch Demo
+                </a>
+              </li>
+              <li>
+                <Link to="/signUp" className="w-full text-left">
+                  Register
+                </Link>
+              </li>
+              <li>
+                <Link to="/signIn" className="w-full text-left">
+                  Login
+                </Link>
+              </li>
+            </ul>
           </div>
         )}
       </div>
