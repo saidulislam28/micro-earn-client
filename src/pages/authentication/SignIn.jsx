@@ -166,7 +166,7 @@ const SignIn = () => {
         </div>
         <p className="agreement">
           Do not have an account?{" "}
-          <Link to="/register">
+          <Link to="/signUp">
             {" "}
             <span className="underline">Register</span>{" "}
           </Link>{" "}

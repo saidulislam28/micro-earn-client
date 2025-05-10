@@ -21,6 +21,9 @@ const Dashboard = () => {
 
   const myUser = data.find((users) => user?.email === users?.email);
 
+  console.log("myUser>>>>>>>", user);
+
+
   return (
     <div className="">
       <Navbar />

@@ -92,7 +92,7 @@ const handleAddTask = e =>{
 	<fieldset noValidate="" action="" className="container flex flex-col mx-auto space-y-12">
 		<div className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-gray-700">
 			<div className="space-y-2 col-span-full lg:col-span-1">
-				<p className="font-medium">Personal Inormation</p>
+				<p className="font-medium">Information</p>
 				
 			</div>
 			<form onSubmit={handleAddTask} className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">

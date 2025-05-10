@@ -83,7 +83,7 @@ const AdminHome = () => {
                 <i className="fas fa-lock text-5xl text-pink-500"></i>
               </div>
               <h3 className="text-xl font-semibold mb-2">Secure Payments</h3>
-              <h6 className="text-5xl">100</h6>
+              <h6 className="text-5xl">348</h6>
             </div>
           </div>
         </div>

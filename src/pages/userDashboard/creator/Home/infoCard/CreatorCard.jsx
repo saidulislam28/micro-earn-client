@@ -33,7 +33,7 @@ const CreatorCard = ({userData,tasks, submissions}) => {
         <FaDollarSign className="text-4xl mr-4 text-yellow-400" />
 
           <h3 className="my-3 text-2xl font-semibold">Total Payment </h3>
-          <h3 className="mt-2 text-3xl font-semibold">100</h3>
+          <h3 className="mt-2 text-3xl font-semibold">79</h3>
         </div>
       </div>
     </div>
